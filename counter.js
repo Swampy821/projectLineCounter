@@ -1,5 +1,8 @@
 var DIRECTORYTOCOUNT = 'FILE LOC';
 var acceptedFiles = new Array('.php','.js','.css');
+
+
+
 var fs = require('fs');
 var totalCount = 0;
 var fileCount = 0;
