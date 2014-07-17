@@ -1,4 +1,4 @@
-var DIRECTORYTOCOUNT = 'FILE LOC';
+var DIRECTORYTOCOUNT = process.argv[2];
 var acceptedFiles = new Array('.php','.js','.css');
 
 
@@ -31,20 +31,13 @@ function getFiles(dir) {
                 }
             }
         }
-    } 
-}
-function countFile(fileLoc) {
-    var i;
-    var count = 0;
-    fs.createReadStream(fileLoc)
-      .on('data', function(chunk) {
-        for (i=0; i < chunk.length; ++i)
-          if (chunk[i] == 10) count++;
-      })
-      .on('end', function() {
-        totalCount += count;
-        console.log('\033[2J'+'Counting '+fileCount+' files. '+totalCount+' lines.');
-      });
+    }
 }
 
+function countFile(fileLoc) {
+   var file = fs.readFileSync(fileLoc,'utf8');
+   file = file.split('\n');
+   totalCount+=file.length;
+}
 getFiles(DIRECTORYTOCOUNT);
+console.log('Total Lines: ' + totalCount);
